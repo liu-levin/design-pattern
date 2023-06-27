@@ -10,7 +10,17 @@ func TestGetInstance(t *testing.T) {
 	assert.Equal(t, GetEagerInstance(), GetLazyInstance())
 }
 
-func BenchmarkGetInstanceParallel(b *testing.B) {
+func BenchmarkGetNewInstanceParallel(b *testing.B) {
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			if GetNewInstance() != GetNewInstance() {
+				b.Errorf("test fail")
+			}
+		}
+	})
+}
+
+func BenchmarkGetEagerInstanceParallel(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			if GetEagerInstance() != GetEagerInstance() {

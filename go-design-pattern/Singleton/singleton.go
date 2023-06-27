@@ -7,6 +7,12 @@ type Singleton struct {
 
 var eagerSingleton *Singleton
 
+var newSingleton = new(Singleton)
+
+func GetNewInstance() *Singleton {
+	return newSingleton
+}
+
 func init() {
 	eagerSingleton = &Singleton{}
 }
